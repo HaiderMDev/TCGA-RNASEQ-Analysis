@@ -1,0 +1,64 @@
+# Go to Firehose Broad Website (https://gdac.broadinstitute.org/)
+# Download the Clinical data and RNAseq from CESC 
+
+#Clinical Data:
+wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/CESC/20160128/gdac.broadinstitute.org_CESC.Merge_Clinical.Level_1.2016012800.0.0.tar.gz.md5
+
+#RNA-seq data (RSEM Gene Normalized):
+wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/CESC/20160128/gdac.broadinstitute.org_CESC.Merge_rnaseqv2__illuminahiseq_rnaseqv2__unc_edu__Level_3__RSEM_genes_normalized__data.Level_3.2016012800.0.0.tar.gz.md5
+
+#Rename the clinical data file called "CESC.clin.merged.txt" to "clinical.txt"
+#Rename the RNAseq file to "cesc.txt"
+#Create a folder in your desktop called /CESC
+
+#go to your directory with all of the files:
+cd /home/USER/Desktop/CESC/
+--------------------------------------------------------------CESC--------------------------------------------------------------
+
+#transposing and RNAseq using R and grabbing the patientID:
+R
+setwd ("/home/USER/Desktop/CESC/")
+cesc=read.table("cesc.txt",header=T,sep="\t",row.names=1)
+tcesc=t(cesc)
+patientID=row.names(tcesc)
+write.table(patientID,"patientID.txt",sep="\t")
+write.table(tcesc,"cesc_transposed.txt",sep="\t")
+q()
+n
+
+#to replace the patientID "dots" with "dashes" in order to match the patient barcodes found in the clinical data
+sed -i 's/\./-/g' ./patientID.txt
+
+
+
+#in a separate text file get the patient clinical data organized by the "patient.samples.sample.portions.portion.analytes.analyte-2.aliquots.aliquot.bcr_aliquot_barcode
+".
+#We are going to use the "grep" function to grab the barcodes from clinical data file
+grep -w -i -m1 "patient.samples.sample.portions.portion.analytes.analyte-2.aliquots.aliquot.bcr_aliquot_barcode" ./clinical.txt > ./clinicalID.txt
+#Then transpose the patientID's:
+datamash transpose < ./clinicalID.txt > ./clinicalID_transposed.txt  
+#Now you can remove the "clinicalID.txt" file since its not required
+rm ./clinicalID.txt
+
+
+
+
+# Find patient ID's with clinical and matched RNAseq data
+while read line; do grep -w -i -m1 "$line" ./clinicalID_transposed.txt; done < ./patientID.txt > ./patients_rnaseqclinical_matched.txt
+
+
+
+#Getting the RNAseq profile for patient ID's with matching clinical and RNAseq data
+sed -i 's/\-/./g' ./patients_rnaseqclinical_matched.txt
+while read line; do grep -w -i -m1 "$line" ./cesc_transposed.txt; done < ./patients_rnaseqclinical_matched.txt > ./finaloverlap.txt
+
+
+
+#Removing unnecessary files:
+rm ./cesc.txt
+rm ./patientID.txt
+rm ./genenames.txt
+rm ./clinicalID_transposed.txt
+
+
+#Using a few lines of codes you can find the number and ID's of patients with clinical and transcriptomic data from the TCGA for any cancer cohort. Thank you. 
