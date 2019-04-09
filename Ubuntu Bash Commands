@@ -1,3 +1,8 @@
+
+#Create a folder in your desktop called /CESC
+#Route to your directory with all of the files:
+cd /home/USER/Desktop/CESC/
+
 # Go to Firehose Broad Website (https://gdac.broadinstitute.org/)
 # Download the Clinical data and RNAseq from CESC 
 
@@ -9,10 +14,7 @@ wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/CESC/20160128/
 
 #Rename the clinical data file called "CESC.clin.merged.txt" to "clinical.txt"
 #Rename the RNAseq file to "cesc.txt"
-#Create a folder in your desktop called /CESC
 
-#go to your directory with all of the files:
-cd /home/USER/Desktop/CESC/
 --------------------------------------------------------------CESC--------------------------------------------------------------
 
 #transposing the RNAseq using R and saving the patientID's as a separate file:
