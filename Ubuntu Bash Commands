@@ -15,7 +15,7 @@ wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/CESC/20160128/
 cd /home/USER/Desktop/CESC/
 --------------------------------------------------------------CESC--------------------------------------------------------------
 
-#transposing and RNAseq using R and grabbing the patientID:
+#transposing the RNAseq using R and saving the patientID's as a separate file:
 R
 setwd ("/home/USER/Desktop/CESC/")
 cesc=read.table("cesc.txt",header=T,sep="\t",row.names=1)
