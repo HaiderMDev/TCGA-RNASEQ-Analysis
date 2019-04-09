@@ -57,7 +57,6 @@ while read line; do grep -w -i -m1 "$line" ./cesc_transposed.txt; done < ./patie
 #Removing unnecessary files:
 rm ./cesc.txt
 rm ./patientID.txt
-rm ./genenames.txt
 rm ./clinicalID_transposed.txt
 
 
