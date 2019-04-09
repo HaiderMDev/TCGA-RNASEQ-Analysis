@@ -31,8 +31,6 @@ sed -i 's/\./-/g' ./patientID.txt
 
 
 
-#in a separate text file get the patient clinical data organized by the "patient.samples.sample.portions.portion.analytes.analyte-2.aliquots.aliquot.bcr_aliquot_barcode
-".
 #We are going to use the "grep" function to grab the barcodes from clinical data file
 grep -w -i -m1 "patient.samples.sample.portions.portion.analytes.analyte-2.aliquots.aliquot.bcr_aliquot_barcode" ./clinical.txt > ./clinicalID.txt
 #Then transpose the patientID's:
