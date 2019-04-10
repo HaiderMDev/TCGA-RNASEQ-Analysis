@@ -1,10 +1,9 @@
 
 #Create a folder in your desktop called /CESC
-#Route to your directory with all of the files:
+#Route to your directory:
 cd /home/USER/Desktop/CESC/
 
-# Go to Firehose Broad Website (https://gdac.broadinstitute.org/)
-# Download the Clinical data and RNAseq from CESC 
+# Download the Clinical data and RNAseq of CESC from Firehose Broad Website (https://gdac.broadinstitute.org/) 
 
 #Clinical Data:
 wget http://gdac.broadinstitute.org/runs/stddata__2016_01_28/data/CESC/20160128/gdac.broadinstitute.org_CESC.Merge_Clinical.Level_1.2016012800.0.0.tar.gz.md5
